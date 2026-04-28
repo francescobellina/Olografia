@@ -1,0 +1,89 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Margini e Layout
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\linespread{1.1}
+
+% Pacchetti Standard
+\usepackage{csquotes}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{pdfpages} % Per inserire i PDF
+
+% --- TIKZ & PGFPLOTS ---
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% --- BIBLIOGRAFIA ---
+\usepackage[style=numeric,sorting=none]{biblatex}
+\addbibresource{Sections/bibliography.bib}
+
+% --- HYPERREF (Per indice cliccabile e link) ---
+\usepackage{xcolor}
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue,            
+    citecolor=red!70!black,    
+    urlcolor=cyan,             
+    bookmarks=true,
+    bookmarksopen=true,        % Apre i segnalibri nel visualizzatore PDF
+    pdftitle={DHM Project},            
+]{hyperref}
+
+% Attiva la numerazione (necessaria per l'indice)
+\pagenumbering{arabic} 
+
+\begin{document}
+
+% --- INTESTAZIONE ---
+\begin{center}
+    \begin{minipage}{0.09\textwidth}
+        \includegraphics[width=\linewidth]{logo.png} 
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.85\textwidth}
+        \vspace{-0.01cm} 
+        {\large \textbf{LABORATORY OF BIOPHOTONICS II A.A.2025-2026}}
+         \vspace{0.2cm} 
+      \hspace*{2.5cm}{ \textit{Giuseppe Occhialini Department Of Physics}}
+    \end{minipage}
+\end{center}
+\vspace{1cm}
+
+% --- TITOLO ---
+\begin{center}
+    {\Huge \textbf{DHM}}\\[0.6cm]
+    {\large C. Catanoso, A. Lavecchia, F. Bellina, G. Marzorati}
+\end{center}
+\vspace{1cm}
+
+% --- INDICE ---
+\tableofcontents
+\newpage
+
+% --- INSERIMENTO SEZIONI ---
+\input{Sections/Introduction}
+\input{Sections/TheoreticalFramework}
+\input{Sections/Construction}
+\input{Sections/Data analysis}
+\input{Sections/Conclusions}
+
+% --- INSERIMENTO PDF ESTERNO ---
+% Se vuoi inserire un file PDF qui, decommenta la riga sotto:
+% \includepdf[pages=-]{NomeDelTuoFile.pdf}
+
+\newpage
+% --- BIBLIOGRAFIA ---
+\nocite{*} % Mostra tutti i riferimenti nel file .bib anche se non citati
+
+\printbibheading[title={References}] % Aggiunge un titolo alla sezione bibliografia
+\end{document}
