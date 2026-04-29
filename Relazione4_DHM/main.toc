@@ -1,6 +1,84 @@
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
-\contentsline {section}{\numberline {2}Theoretical Framework}{2}{section.2}%
-\contentsline {section}{\numberline {3}Construction}{2}{section.3}%
-\contentsline {section}{\numberline {4}Data Analysis}{2}{section.4}%
-\contentsline {section}{\numberline {5}Conclusions}{2}{section.5}%
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {section}{\numberline {2}Introduzione e motivazione}{4}{section.2}%
+\contentsline {section}{\numberline {3}Principio fisico: cammino ottico e sfasamento}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}L'indice di rifrazione e la velocità della luce}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Definizione del cammino ottico}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Configurazione sperimentale della DHM}{5}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Relazione tra OPL e fase misurata}{5}{subsection.3.4}%
+\contentsline {paragraph}{Il problema dell'accoppiamento.}{5}{section*.2}%
+\contentsline {section}{\numberline {4}Stabilità del sistema e prestazioni della DHM}{5}{section.4}%
+\contentsline {section}{\numberline {5}La procedura di disaccoppiamento}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Idea fondamentale}{6}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Protocollo sperimentale}{6}{subsection.5.2}%
+\contentsline {paragraph}{Come si ottiene $\delta n$:}{6}{section*.3}%
+\contentsline {subsection}{\numberline {5.3}Il sistema di equazioni}{6}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Derivazione della formula per lo spessore cellulare}{7}{subsection.5.4}%
+\contentsline {paragraph}{Interpretazione.}{7}{section*.4}%
+\contentsline {subsection}{\numberline {5.5}Derivazione della formula per l'indice di rifrazione integrale}{7}{subsection.5.5}%
+\contentsline {paragraph}{Interpretazione.}{7}{section*.5}%
+\contentsline {subsection}{\numberline {5.6}Riepilogo del sistema: forma matriciale}{8}{subsection.5.6}%
+\contentsline {section}{\numberline {6}Precisione e limiti della procedura}{8}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Stime teoriche di accuratezza per campioni fissi}{8}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Effetti dei micro-movimenti su campioni viventi}{8}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}La media spaziale come rimedio}{8}{subsection.6.3}%
+\contentsline {paragraph}{Accuratezze pratiche su campioni viventi.}{9}{section*.6}%
+\contentsline {section}{\numberline {7}Discussione critica delle formule (4) e (5)}{9}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Formula (4): misura dell'indice di rifrazione integrale}{9}{subsection.7.1}%
+\contentsline {paragraph}{Struttura matematica.}{9}{section*.8}%
+\contentsline {paragraph}{Dipendenza da $\delta n$.}{9}{section*.9}%
+\contentsline {paragraph}{Limite per $\delta n \to \varphi _{1,i}$ (caso limite).}{9}{section*.10}%
+\contentsline {subsection}{\numberline {7.2}Formula (5): misura dello spessore cellulare}{9}{subsection.7.2}%
+\contentsline {paragraph}{Due forme equivalenti.}{9}{section*.12}%
+\contentsline {paragraph}{Robustezza rispetto all'indice intracellulare.}{9}{section*.13}%
+\contentsline {paragraph}{Consistenza con la fisica.}{10}{section*.14}%
+\contentsline {subsection}{\numberline {7.3}Relazione tra le due formule}{10}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Stima del volume cellulare dalla morfometria}{10}{section.8}%
+\contentsline {section}{\numberline {9}Interpretazione fisica dell'indice di rifrazione integrale}{10}{section.9}%
+\contentsline {section}{\numberline {10}Conclusioni}{10}{section.10}%
+\contentsline {section}{\numberline {11}Contesto e obiettivo dell'esperimento}{11}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Il campione}{11}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Il mezzo esterno}{12}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Differenza fondamentale rispetto all'esperimento biologico}{12}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Principio fisico e equazione di misura}{12}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Cammino ottico e fase DHM}{12}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}La fase come funzione lineare di $n_m^{(k)}$}{13}{subsection.12.2}%
+\contentsline {paragraph}{Proprietà chiave: le rette di gradini diversi si annullano nello stesso punto.}{13}{section*.19}%
+\contentsline {section}{\numberline {13}Problema critico: il phase wrapping}{13}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Stima quantitativa del numero di avvolgimenti}{13}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Come verificare che l'unwrapping sia corretto}{14}{subsection.13.2}%
+\contentsline {section}{\numberline {14}Procedura di disaccoppiamento: recupero delle formule (4) e (5)}{14}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Derivazione della formula per lo spessore}{14}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Derivazione della formula per l'indice di rifrazione}{15}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Verifica interna: $h$ noto vs $h$ ricostruito}{15}{subsection.14.3}%
+\contentsline {section}{\numberline {15}Analisi globale: fit lineare su tutte le coppie}{15}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Impostazione del problema}{15}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Soluzione ai minimi quadrati}{15}{subsection.15.2}%
+\contentsline {section}{\numberline {16}Propagazione degli errori}{16}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Errore su $n_\text {tape}$ dalla formula \eqref {eq:indice}}{16}{subsection.16.1}%
+\contentsline {paragraph}{Osservazione importante.}{16}{section*.22}%
+\contentsline {subsection}{\numberline {16.2}Effetto della temperatura su $n_m^{(k)}$}{16}{subsection.16.2}%
+\contentsline {section}{\numberline {17}Schema operativo dell'analisi}{17}{section.17}%
+\contentsline {section}{\numberline {18}Riepilogo: differenze rispetto al paper originale}{17}{section.18}%
+\contentsline {section}{\numberline {19}Questioni aperte}{18}{section.19}%
+\contentsline {section}{\numberline {20}Fase interferometrica e phase unwrapping in Digital Holographic Microscopy}{18}{section.20}%
+\contentsline {subsection}{\numberline {20.1}Fase wrapped e periodicità della misura}{18}{subsection.20.1}%
+\contentsline {subsection}{\numberline {20.2}Interpretazione spaziale e frange di interferenza}{19}{subsection.20.2}%
+\contentsline {subsection}{\numberline {20.3}Phase unwrapping}{19}{subsection.20.3}%
+\contentsline {subsection}{\numberline {20.4}Osservazioni finali}{19}{subsection.20.4}%
+\contentsline {section}{\numberline {21}Construction}{20}{section.21}%
+\contentsline {section}{\numberline {22}Data Analysis}{20}{section.22}%
+\contentsline {subsection}{\numberline {22.1}Hologram Acquisition and FFT Computation}{20}{subsection.22.1}%
+\contentsline {subsection}{\numberline {22.2}Gated Spectrum and Field Recovery}{20}{subsection.22.2}%
+\contentsline {subsection}{\numberline {22.3}Resolution Budget: Digital vs.\ Optical Limit}{21}{subsection.22.3}%
+\contentsline {subsection}{\numberline {22.4}Spectral Masking}{22}{subsection.22.4}%
+\contentsline {paragraph}{Elliptic outer mask.}{22}{section*.29}%
+\contentsline {paragraph}{Central-peak removal.}{22}{section*.30}%
+\contentsline {subsection}{\numberline {22.5}Frequency-Weighted Sharpness Metric}{22}{subsection.22.5}%
+\contentsline {subsection}{\numberline {22.6}Numerical Propagation — Angular Spectrum Method}{23}{subsection.22.6}%
+\contentsline {subsection}{\numberline {22.7}Amplitude and Phase Reconstruction}{23}{subsection.22.7}%
+\contentsline {paragraph}{Amplitude.}{24}{section*.34}%
+\contentsline {paragraph}{Wrapped phase.}{24}{section*.35}%
+\contentsline {paragraph}{Unwrapped phase.}{24}{section*.36}%
+\contentsline {subsection}{\numberline {22.8}Processing Pipeline Summary}{24}{subsection.22.8}%
+\contentsline {section}{\numberline {23}Conclusions}{25}{section.23}%

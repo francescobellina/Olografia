@@ -1,1 +1,360 @@
+
 \section{Data Analysis}
+
+The reconstruction of the complex electric field $E(x,y)$ from the acquired digital hologram
+is carried out through a fully numerical pipeline implemented in Python.
+The procedure is articulated in four main stages:
+spectral field recovery at the sensor plane,
+spectral quality assessment,
+numerical propagation along the optical axis,
+and quantitative analysis of amplitude and phase.
+Each stage is described in detail below.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Hologram Acquisition and FFT Computation} %per questa prima parte si possono usare le immagini del primo giorno, giusto per mostrare come funziona il codice e l'analisi dati
+
+The hologram is recorded by a Basler acA3800-14um camera (sensor pixel pitch
+$\delta_\text{sensor} = \SI{2.4}{\micro\meter}$) and saved as an OME-TIFF stack.
+The raw frame is loaded as a 2D floating-point array $I(x,y)$ of size
+$N_x \times N_y$ pixels.
+
+In the off-axis configuration, the recorded intensity results from the
+interference of the reference wave $R$ and the object wave $O$:
+\begin{equation}
+    I(x,y) \;=\; |R + O|^2
+            \;=\; |R|^2 + |O|^2 + R^*O + RO^*
+    \label{eq:hologram_intensity}
+\end{equation}
+The four terms in Eq.~\eqref{eq:hologram_intensity} produce
+\textit{three distinct regions} in the Fourier domain
+(Fig.~\ref{fig:fft_spectrum}):
+the strong DC component (order~0, centred), the \textit{useful} sideband
+(order~$+1$, which encodes the object's amplitude and phase), and its
+complex-conjugate mirror (order~$-1$).
+The lateral tilt between $R$ and $O$ spatially separates all three orders,
+making spectral isolation of the $+1$ order possible.
+
+The 2D Fast Fourier Transform is computed on $I(x,y)$, and the resulting
+spectrum is centred with \texttt{fftshift} so that the DC term appears at
+the array centre.
+The logarithmic magnitude $\log(|\tilde{I}|+1)$ is displayed for
+visualisation purposes.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Gated Spectrum and Field Recovery}
+
+The function \texttt{compute\_gated\_spectrum} isolates the $+1$ order and
+recovers the complex electric field $E(x,y,0)$ at the sensor plane through
+four sequential steps.
+
+\subsubsection*{Step 1 — Adaptive DC masking}
+A circular mask of radius
+$r_\text{exc} = 0.15\,\min(N_x,N_y)$ pixels is applied around the spectral
+centre, zeroing the dominant DC component so that it does not bias the
+subsequent peak search.
+
+\subsubsection*{Step 2 — Sub-pixel peak localisation}
+The global maximum in the masked spectrum is located, and its position is
+refined to sub-pixel accuracy by computing the \textit{centre of mass} of a
+$5{\times}5$~pixel neighbourhood using
+\texttt{scipy.ndimage.center\_of\_mass}.
+This yields the peak coordinates $(i_\text{peak},\,j_\text{peak})$ with
+sub-pixel precision.
+
+\subsubsection*{Step 3 — Rectangular spectral cropping}
+A window of size $\Delta X \times \Delta Y$ pixels is extracted from the
+centred spectrum, centred on the $+1$ peak.
+The vertical extent is rescaled proportionally to the image aspect ratio:
+\begin{equation}
+    \Delta Y \;=\; \Delta X \cdot \frac{N_x}{N_y}
+\end{equation}
+The choice of $\Delta X$ sets a trade-off between spatial resolution
+and noise rejection (see Section~\ref{sec:resolution_budget}).
+
+\subsubsection*{Step 4 — Complex field recovery via IFFT}
+The inverse FFT of the cropped window (after inverse-shifting with
+\texttt{ifftshift}) yields the complex electric field at the sensor plane:
+\begin{equation}
+    E(x,y,0) \;=\; \mathcal{F}^{-1}\!\left\{\,\tilde{I}_{+1}(f_x,f_y)\,\right\}
+    \label{eq:field_ifft}
+\end{equation}
+
+\subsubsection*{Physical parameters}
+The object-plane pixel pitch is determined by the optical magnification
+$M$ of the microscope objective:
+\begin{equation}
+    \delta_\text{obj} \;=\; \frac{\delta_\text{sensor}}{M}
+\end{equation}
+The parameters used throughout the analysis are summarised in
+Table~\ref{tab:setup_params}.
+
+\begin{table}[h!]
+    \centering
+    \caption{Physical setup parameters.}
+    \label{tab:setup_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parameter} & \textbf{Symbol} & \textbf{Value} \\
+        \hline
+        Sensor pixel pitch     & $\delta_\text{sensor}$ & \SI{2.4}{\micro\meter} \\
+        Optical magnification  & $M$                    & $12\times$ \\
+        Object-plane pixel pitch & $\delta_\text{obj}$  & \SI{0.2}{\micro\meter} \\
+        Laser wavelength       & $\lambda$              & \SI{635}{\nano\meter}\ (HeNe) \\
+        Numerical aperture     & NA                     & $0.3$ \\
+        Gating window          & $\Delta X$             & $300\;\text{px}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Resolution Budget: Digital vs.\ Optical Limit}
+\label{sec:resolution_budget}
+
+The size of the gating window $\Delta X$ directly controls the spatial
+resolution of the reconstructed field.
+The spatial frequency step and the resulting digital resolution along each
+axis are:
+\begin{equation}
+    \delta f_x \;=\; \frac{1}{N_x\,\delta_\text{obj}}, \qquad
+    B_x \;=\; \Delta Y \cdot \delta f_x, \qquad
+    \delta x_\text{dig} \;=\; \frac{1}{B_x}
+    \label{eq:digital_resolution}
+\end{equation}
+and analogously along $y$.
+
+The theoretical optical resolution is given by the Rayleigh criterion for
+coherent illumination:
+\begin{equation}
+    \delta_\text{optical} \;=\; \frac{0.61\,\lambda}{\mathrm{NA}}
+    \label{eq:rayleigh}
+\end{equation}
+An equivalent \textit{experimental} numerical aperture can be derived by
+inverting Eq.~\eqref{eq:rayleigh}:
+\begin{equation}
+    \mathrm{NA}_\text{exp} \;=\; \frac{0.61\,\lambda}{\delta_\text{dig}}
+\end{equation}
+If $\delta_\text{dig} > \delta_\text{optical}$, the gating window is too
+narrow and is discarding spatial frequencies physically present in the signal.
+The minimum window size required to capture the full optical bandwidth is:
+\begin{equation}
+    \Delta X_\text{min} \;=\; \frac{2\,f_\text{max}}{\delta f_y}, \qquad
+    f_\text{max} \;=\; \frac{\mathrm{NA}}{0.61\,\lambda}
+\end{equation}
+This diagnostic check is systematically performed by the notebook and
+issues a warning whenever the chosen $\Delta X$ is insufficient.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Spectral Masking}
+
+Two complementary masks are applied to the gated spectrum in order to
+suppress noise and residual artefacts.
+
+\paragraph{Elliptic outer mask.}
+Only spectral components within an ellipse of semi-axes
+$a = \Delta Y/2$ and $b = \Delta X/2$ (consistent with the physical extent of
+the cropping window) are retained; all components outside are set to zero.
+
+\paragraph{Central-peak removal.}
+A disk of fixed radius $r_0 = 13$~px, centred on the dominant spectral peak
+inside the ellipse, is zeroed.
+This eliminates the residual DC contribution or any strong undiffracted
+component that would otherwise corrupt the reconstructed phase.
+
+The combined binary mask is:
+\begin{equation}
+    M(f_x,f_y)
+    \;=\;
+    M_\text{ellipse}(f_x,f_y)
+    \;\wedge\;
+    \overline{M}_\text{circle}(f_x,f_y)
+    \label{eq:combined_mask}
+\end{equation}
+
+Both the real-valued (modulus) and the complex-valued gated spectra are
+processed with this mask.
+The masked complex spectrum is retained for optional alternative
+reconstructions; the main propagation pipeline uses the \textit{unmasked}
+field $E(x,y,0)$.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Frequency-Weighted Sharpness Metric}
+
+A spectral sharpness metric $S_\rho$ is introduced to quantify the
+high-frequency content of the reconstructed field — and thereby to assess
+the degree of focus.
+For each active pixel $(f_x,f_y)$ in the masked gated spectrum, the
+normalised radial distance from the ellipse centre is:
+\begin{equation}
+    \rho(f_x,f_y)
+    \;=\; \sqrt{\left(\frac{f_x - f_{x,0}}{a}\right)^2
+               +\left(\frac{f_y - f_{y,0}}{b}\right)^2}
+\end{equation}
+The weighted sharpness is then defined as:
+\begin{equation}
+    S_\rho
+    \;=\;
+    \frac{\displaystyle\sum_{\text{valid}}
+          \log\!\left(1+|\tilde{E}|\right)\cdot\rho}
+         {\displaystyle\sum_{\text{valid}}\rho}
+    \label{eq:sharpness}
+\end{equation}
+A high value of $S_\rho$ indicates that spectral power is concentrated
+towards the periphery of the ellipse, corresponding to a sharp, well-focused
+reconstruction.
+A low value indicates that energy is confined to low spatial frequencies,
+signalling defocus.
+This metric can be evaluated as a function of propagation distance $z$
+(Section~\ref{sec:propagation}) to automate the search for the best-focus
+plane.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Numerical Propagation — Angular Spectrum Method}
+\label{sec:propagation}
+
+\subsubsection*{Theoretical framework}
+Given the complex field $E(x,y,0)$ at the sensor plane, the field at an
+arbitrary axial distance $z$ is obtained by multiplying in the Fourier domain
+by the \textit{Angular Spectrum} transfer function:
+\begin{equation}
+    E(x,y,z)
+    \;=\;
+    \mathcal{F}^{-1}\!\left\{
+        H(f_x,f_y;\,z)\;\cdot\;\tilde{E}(f_x,f_y)
+    \right\}
+    \label{eq:asm}
+\end{equation}
+where
+\begin{equation}
+    H(f_x,f_y;\,z) \;=\; e^{-i k_z z},
+    \qquad
+    k_z \;=\; \sqrt{k_0^2 - 4\pi^2(f_x^2+f_y^2)},
+    \qquad
+    k_0 \;=\; \frac{2\pi}{\lambda}
+    \label{eq:propagator}
+\end{equation}
+Spatial frequencies satisfying $f_x^2+f_y^2 > (1/\lambda)^2$ correspond to
+\textit{evanescent waves}: $k_z$ becomes purely imaginary and their
+contribution decays exponentially away from the source plane.
+These components are suppressed by a circular bandpass mask of cutoff radius
+$f_0 = 1/\lambda$.
+Numerical stability for evanescent frequencies is ensured by casting
+$k_z^2$ to \texttt{complex} before taking the square root, which prevents
+\texttt{NaN} propagation.
+
+\subsubsection*{Implementation}
+The propagation routine is factored into three modular functions:
+
+\begin{itemize}
+    \item \texttt{circle\_mask($\mathbf{FF}_x$,$\mathbf{FF}_y$,$f_0$)} —
+          returns a binary mask equal to~1 for propagating frequencies
+          ($f_x^2+f_y^2 \leq f_0^2$) and~0 elsewhere;
+    \item \texttt{propagator($k_0$,$\mathbf{FF}_x$,$\mathbf{FF}_y$,$f_0$,$z$)} —
+          computes the transfer function $H$ of Eq.~\eqref{eq:propagator};
+    \item \texttt{step\_propagation($E_0$,\,freq,\,$f_0$,$k_0$,$z$)} —
+          executes the full pipeline:
+          FFT$_2 \to$ multiply by $H \to$ IFFT$_2$.
+\end{itemize}
+
+\subsubsection*{Numerical refocusing}
+Starting from $E(x,y,0)$, the field is propagated over a discrete set of
+axial planes:
+\begin{equation}
+    z \;\in\; [-24,\;+24]\;\si{\micro\meter},
+    \quad \Delta z = \SI{2}{\micro\meter}
+    \quad (25\;\text{planes total})
+\end{equation}
+For each plane, $|E(x,y,z)|$ is computed and displayed.
+The best-focus depth $z^*$ is identified as the plane that maximises
+the sharpness metric $S_\rho$ defined in Eq.~\eqref{eq:sharpness}.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Amplitude and Phase Reconstruction}
+
+From the recovered complex field $E(x,y,0) = |E|\,e^{i\phi}$,
+three quantitative maps are extracted.
+
+\paragraph{Amplitude.}
+\begin{equation}
+    A(x,y) \;=\; |E(x,y,0)|
+\end{equation}
+Bright regions correspond to areas of high scattering or absorption.
+
+\paragraph{Wrapped phase.}
+\begin{equation}
+    \phi_w(x,y) \;=\; \arg\!\left(E(x,y,0)\right) \;\in\; [-\pi,\,+\pi]
+\end{equation}
+Computed via \texttt{numpy.angle}.
+Wherever the accumulated phase exceeds $2\pi$, the $\arctan$ function
+introduces discontinuities (phase wrapping) visible as abrupt $2\pi$~jumps.
+
+\paragraph{Unwrapped phase.}
+\begin{equation}
+    \phi(x,y) \;=\; \mathcal{U}\!\left[\phi_w(x,y)\right]
+\end{equation}
+Computed with \texttt{skimage.restoration.unwrap\_phase}, which implements
+a 2D path-following phase-unwrapping algorithm.
+The result is a continuous, quantitative phase map related to the optical
+path length through the sample:
+\begin{equation}
+    \phi(x,y)
+    \;=\; \frac{2\pi}{\lambda}\,\Delta n(x,y)\,t(x,y)
+    \label{eq:opd}
+\end{equation}
+where $\Delta n$ is the refractive-index contrast with respect to the
+surrounding medium and $t$ is the local sample thickness.
+Equation~\eqref{eq:opd} is the primary relation linking the measured phase
+to the physical properties of the specimen, enabling quantitative
+morphological and optical characterisation.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\subsection{Processing Pipeline Summary}
+
+The complete data-analysis workflow is schematised below.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance   = 0.55cm and 1.2cm,
+    box/.style      = {draw, rounded corners=3pt, fill=blue!8,
+                       minimum width=5.2cm, minimum height=0.65cm,
+                       font=\small, align=center},
+    side/.style     = {draw, rounded corners=3pt, fill=orange!12,
+                       minimum width=4.0cm, minimum height=0.65cm,
+                       font=\small, align=center},
+    arr/.style      = {->, thick},
+    sarr/.style     = {->, dashed, gray}
+]
+
+\node[box] (load)   {Raw hologram $I(x,y)$ — TIFF/OME-TIFF};
+\node[box, below=of load]  (fft)    {2D FFT $\to$ centred spectrum $\tilde{I}(f_x,f_y)$};
+\node[box, below=of fft]   (gate)   {Adaptive DC mask + sub-pixel peak search};
+\node[box, below=of gate]  (crop)   {Rectangular crop $\Delta X \times \Delta Y$ on order $+1$};
+\node[box, below=of crop]  (ifft)   {IFFT $\to$ complex field $E(x,y,0)$};
+
+\node[side, right=of crop]  (rescheck) {Resolution budget\\(digital vs.\ Rayleigh)};
+\node[side, right=of ifft]  (mask)     {Elliptic mask +\\central-peak removal};
+\node[side, below=of mask]  (sharp)    {Weighted sharpness\\$S_\rho$};
+
+\node[box, below=of ifft]  (asm)    {Angular Spectrum propagation\\$E(x,y,z),\; z\in[-24,+24]\,\mu\text{m}$};
+\node[box, below=of asm]   (maps)   {Amplitude $|E|$\quad Wrapped $\phi_w$\quad Unwrapped $\phi$};
+
+\draw[arr] (load)  -- (fft);
+\draw[arr] (fft)   -- (gate);
+\draw[arr] (gate)  -- (crop);
+\draw[arr] (crop)  -- (ifft);
+\draw[arr] (ifft)  -- (asm);
+\draw[arr] (asm)   -- (maps);
+
+\draw[sarr] (crop)  -- (rescheck);
+\draw[sarr] (ifft)  -- (mask);
+\draw[sarr] (mask)  -- (sharp);
+\draw[sarr] (sharp) -- (asm);
+
+\end{tikzpicture}
+\caption{Schematic of the digital holographic reconstruction pipeline.
+         Solid arrows indicate the main data flow; dashed arrows indicate
+         diagnostic/optional branches.}
+\label{fig:pipeline}
+\end{figure}
+
+

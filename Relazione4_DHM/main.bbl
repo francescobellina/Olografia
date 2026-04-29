@@ -1,0 +1,58 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{example2026}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=370363d927113576833fa72258f742d9}{%
+           family={Rossi},
+           familyi={R\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5f597669ecb33101843108b535588af5}{%
+           family={Bianchi},
+           familyi={B\bibinitperiod},
+           given={Lucia},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{30c4fd7f4d5085a94b00305861820bf9}
+      \strng{fullhash}{30c4fd7f4d5085a94b00305861820bf9}
+      \strng{fullhashraw}{30c4fd7f4d5085a94b00305861820bf9}
+      \strng{bibnamehash}{30c4fd7f4d5085a94b00305861820bf9}
+      \strng{authorbibnamehash}{30c4fd7f4d5085a94b00305861820bf9}
+      \strng{authornamehash}{30c4fd7f4d5085a94b00305861820bf9}
+      \strng{authorfullhash}{30c4fd7f4d5085a94b00305861820bf9}
+      \strng{authorfullhashraw}{30c4fd7f4d5085a94b00305861820bf9}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Examples}
+      \field{title}{Esempio di riferimento bibliografico}
+      \field{volume}{1}
+      \field{year}{2026}
+      \true{nocite}
+      \field{pages}{1\bibrangedash 10}
+      \range{pages}{10}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
