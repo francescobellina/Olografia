@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1777458542.35878 "main.bcf" "main.bbl" "main" 1777463954.67666 0
+["biber main"] 1777458542.35878 "main.bcf" "main.bbl" "main" 1778081166.43968 0
   "Sections/bibliography.bib" 1777449737.50433 207 5d2736afd3ca12a55be012728ca89777 ""
-  "main.bcf" 1777463954.54356 107825 cafdef1cc7ca55782568613ec2d8a383 "pdflatex"
+  "main.bcf" 1778081166.26305 107825 cafdef1cc7ca55782568613ec2d8a383 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1777463953.21895 "/Users/francesco/Repositories /Olografia/Relazione4_DHM/main.tex" "main.pdf" "main" 1777463954.67688 0
+["pdflatex"] 1778081164.49478 "/Users/francesco/Repositories /Olografia/Relazione4_DHM/main.tex" "main.pdf" "main" 1778081166.44002 2
   "/Users/francesco/Repositories /Olografia/Relazione4_DHM/main.tex" 1777455245.91345 2288 da071ea9e780005ee25f6170dd97f434 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -292,15 +292,15 @@
   "Sections/Conclusions.tex" 1777372078 21 962245b29278b6028e8e709db79a2139 ""
   "Sections/Construction.tex" 1777372078 22 b0f5684f469621a610514820dcbffc29 ""
   "Sections/Data analysis.tex" 1777453652.17489 15995 82f9392499f44455352cb82e016d3f81 ""
-  "Sections/Introduction.tex" 1777372078 22 5c23bcd9d46cf48d2292896666a8a8fc ""
+  "Sections/Introduction.tex" 1778081161.69988 6243 e4921bb9ab64ed7f86ba356fd039bc57 ""
   "Sections/TheoreticalFramework.tex" 1777463953.00859 47219 872e1a89964b408e73c63255bb7ba004 ""
   "logo.png" 1777372078 62261 1fa258b1ad50f0a6a51a69df07122f35 ""
-  "main.aux" 1777463954.54091 15294 08f26ed153267cc56727f2fe2374a7ed "pdflatex"
+  "main.aux" 1778081166.25842 15485 b0711914b65c126fec4d10647e49696a "pdflatex"
   "main.bbl" 1777458544.35489 1909 d80e7acfc25f2becd98bb25922b6a7ae "biber main"
-  "main.out" 1777463954.54283 15780 e37b2588826d9501e6e9f117edd3bc17 "pdflatex"
-  "main.run.xml" 1777463954.54409 2316 6d1966f5a87a3fe35b3db50680f889e1 "pdflatex"
+  "main.out" 1778081166.26191 16253 c8c2e939671e87b81ddbfbb7576f1f70 "pdflatex"
+  "main.run.xml" 1778081166.2639 2316 39e8192fe0fc2a469e57e18852b0bbb1 "pdflatex"
   "main.tex" 1777455245.91345 2288 da071ea9e780005ee25f6170dd97f434 ""
-  "main.toc" 1777463954.54414 7887 f110c289545ba830e5869d4b1f9a9a30 "pdflatex"
+  "main.toc" 1778081166.26395 8040 a125e07caba88ae070e9d2c73baf03b7 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"

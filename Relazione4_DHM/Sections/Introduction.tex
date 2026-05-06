@@ -1,1 +1,76 @@
 \section{Introduction}
+
+Digital holographic microscopes (DHMs) have been widely applied in material and biological
+applications. For instance, among many biological and biomedical applications, DHM
+systems are used for analyzing cells and tissues, as well as disease diagnosis and screening
+ and assessing the polarimetric properties of biomedical samples.
+The performance of DHM technologies relies heavily on computational reconstruction processing to provide trustworthy
+sample information. The required computational reconstruction algorithms are uniquely
+dependent on the optical configuration of the DHM system. An incorrect selection of the
+reconstruction algorithms leads to distorted and inaccurate amplitude and phase measurements. 
+
+DHM systems record the interference pattern (e.g., hologram) generated between the scattered light from the sample, named object wavefront, and a known reference wavefront.
+DHM systems operate in off-axis, slightly off-axis, or in-line (also known as on-axis) configurations based on the interference angle.
+Therefore, the selection of the DHM reconstruction
+algorithms depends on this interference angle. 
+
+For example, off-axis DHM systems enable the
+reconstruction of the complex amplitude distribution of an object wavefront from a single hologram since the three components of the hologram are entirely separable in the Fourier
+domain.
+
+Therefore, the reconstruction algorithm in off-axis DHM systems requires the spatial filtering of the sample frequencies from the hologram’s spectrum. In contrast, the
+spectral components of a hologram in the Fourier domain overlay totally or partially in in-line
+and slightly off-axis DHM systems, respectively, requiring the acquisition of multiple phase-shifted holograms and the application of phase-shifting (PS) techniques [1, 26] to reconstruct the desired object information. 
+
+In addition, the selection of the DHM reconstruction algo-
+rithms also depends on whether the DHM imaging system operates in telecentric or non-telecentric regimes.
+ DHM systems operating in the telecentric regime only require the interference angle compensation in the off-axis and slightly off-axis configuration.
+Oppositely, non-telecentric DHM systems should compensate for the spherical phase factor recognized in
+DHM and associated with a non-telecentric imaging system. Finally, the DHM configuration can operate in an image-plane configuration, meaning that in-focus DHM holograms
+are recorded, so there is no need to apply numerical propagations to focus the amplitude and
+phase images. However, if out-of-focus holograms are recorded, the user should numerically
+propagate the complex amplitude distribution to provide in-focus images. Among the different
+numerical propagation algorithms to reconstruct DHM images, the most used computational
+approaches in DHM are the angular spectrum for short propagation distances [31, 32] and the
+Fresnel transform algorithm for large propagation distances [33].
+Still, each research group within the DHM community develops and implements its own
+computational reconstruction algorithms based on its experimental digital holography (DH)
+and DHM systems. Nonetheless, some research groups have developed and implemented
+libraries and plugins to address the need for an open-source reconstruction toolbox in DHM
+and DH. The main difference between DHM and DH systems is the utilization of a micro-
+scopic imaging system in the object wave. 
+
+\subsubsection{Background: Reconstruction algorithms for different optical
+DHM configurations}
+
+DHM systems are based on optical interferometry, which involves the digital recording of the
+interference pattern (e.g., digital hologram) between the complex amplitude distribution scat-
+tered by a microscopic object (e.g., the object wavefront) and a uniform reference wavefront.
+DHM systems are colloquially known as hybrid imaging systems since the final reconstructed
+amplitude or phase images are obtained after further computational processing of the digital
+hologram. This second stage, known as the reconstruction stage, depends on the optical con-
+figuration of the DHM system. This section thoroughly describes different DHM configura-
+tions and their corresponding numerical reconstruction algorithms.
+For simplicity, WE? have chosen a traditional DHM setup based on a Mach-Zehnder interfer-
+ometer operating in transmission mode, see Fig 1(A) METTERE FIGURA. The light generated from a laser of wave-length λ is collimated by a converging lens (CL) and the resultant plane wavefront impinges a
+cubic beam splitter (BS1) to generate the object (O) and the reference (R) wavefronts. A micro-
+scopic imaging system is inserted in the object arm of the DHM system. This microscopic
+imaging system comprises an infinity-corrected microscopic objective (MO) lens and a tube
+lens (TL) which forms an image of the wavefront scattered by the microscopic sample with
+amplitude distribution o(x,y). If the object is set at the front-focal plane (FFP) of the MO lens,
+the image of the sample whose amplitude distribution is uIP (x,y) is then obtained at the back-
+focal plane (BFP) of the TL. This plane is known as the microscope’s image plane (IP) [mettere e discutere eventualemente la formula (1)]. #fare il cammino ottico meglio
+
+The hologram, captured at any plane from the IP, is the result of the interference between
+the complex wavefield produced by the microscope at a distance zfrom the IP,....
+discutere la formula (2) e (3) 
+ The irradiance distribution of the hologram h(x,y;z) is ... (4)
+
+On the other hand, the third
+and fourth terms in Eq (4) encode the complex amplitude information of the object wavefront
+scattered by the sample. These terms represent the object’s real and twin images. From Eq (4),
+it is clear that the object information o(x,y), encoded in u(x,y;z) is mixed with other undesired
+terms. The reconstruction algorithms aim to separate these undesired terms from the object
+information to provide well-contrast amplitude and phase images from the complex in-focus
+amplitude distribution uIP (x,y) = u(x,y;z= 0) with minimum distortions. Assuming that the
+reference wavefront is plane, the 2D Fourier transform of the hologram H(u,v;z) is ....
